@@ -1,0 +1,4 @@
+2023-12-13	12:37:04	1dd7fdd3-9832-4da1-88be-401d32280f8e	Error: Not allowed by CORS
+2023-12-14	06:18:35	65e3b53f-85e2-465c-b3a4-73fb95c9c52d	Error: ENOENT: no such file or directory, stat '/Users/carlosinfante/Desktop/coding-projects/ZTM/BACKEND/Nodejs-plus/dave-gray/08.tut/views/subdir/text.html'
+2023-12-14	07:04:01	2311faef-f698-438a-b5f0-8f1aae8a668e	SyntaxError: Expected double-quoted property name in JSON at position 15
+2023-12-14	07:05:03	dba218a9-4fb2-447c-bb30-f20e3bd89bb4	SyntaxError: Expected double-quoted property name in JSON at position 15

@@ -1,0 +1,1 @@
+2023-12-13	12:37:04	1dd7fdd3-9832-4da1-88be-401d32280f8e	Error: Not allowed by CORS
