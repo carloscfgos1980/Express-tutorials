@@ -34,6 +34,7 @@ passport.use(
             try {
                 if(!email || !password) throw new Error('Missing credentials!');
                 const userDB = await User.findOne({email});
+                if(!userDB) throw new Error( "User not found!");
                 const isValid = comparePassword(password, userDB.password);
                 if(isValid){
                     console.log('Authenticate successful!');

@@ -4,7 +4,7 @@
 
 https://www.youtube.com/watch?v=39znK--Yo1o&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2
 
-- Expressjs is a framework that is used to build server side applications
+- Expressjs is a framework that is used to build server side applications. APIs for your clients
 
 1.  cd example-app
     npm init -y
@@ -162,7 +162,7 @@ const parsedMiles = parseInt(miles);
 2.  Parse into a number (Int) coz the parameter is a string, even when it look like a number:
     const parsedMiles = parseInt(miles);
 
-3.  Check if it is not a number:
+3.  Check if it is a number.isNaN stands for not a number but it has (!) before. So double negative makes is positive :
     if(!isNaN(parsedMiles))
 
 4.  Filter out the stores that are in a area (miles) equal or lower than the parameter given in url (POSTman)
@@ -175,9 +175,13 @@ const parsedMiles = parseInt(miles);
     res.send(marketList);
     }
 
+N: Query Parameters are used to filer or sort data in the request, while route parameter is used to get a single object (collection) of data.
+
 # Lesson 8. ExpressJS - Cookies
 
 https://www.youtube.com/watch?v=SqJqtXjkBts&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=8
+
+N: http is stateless. Cookie allows http to have state
 
 1. Install parser for cookies
    cd express-tutorial
@@ -205,7 +209,7 @@ https://www.youtube.com/watch?v=SqJqtXjkBts&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1
 
 https://www.youtube.com/watch?v=isURb7HQkn8&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=9
 
-- All the data that's store in cookies live in the client side (browser)
+- All the data that's store in cookies live in the client side (browser). We use sessions to store the data in the server side. it is saver
 
 1. Install express-session
    cd express-tutorial
@@ -242,7 +246,7 @@ res.send(201);
 
 https://www.youtube.com/watch?v=HyDCUFaAOyU&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=10
 
-- This is just setting a faka situation to undestand how session works.
+- This is just setting a fake situation to undestand how session works.
 
 1. Install package to handle session
    cd express-tutorial
@@ -295,6 +299,10 @@ N: Now I only have access to the markets and grocery routes only after I have se
 
 https://www.youtube.com/watch?v=o1g7ihFunxQ&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=11
 
+N: MongoDB is not SQL so is componed of documents that contain collections
+
+- Mongoose is a very popular tool. It's called ORM that stands for Object Relational Mapper. It mapps objects javascript objects into the actual database table or database collection or document
+
 1. Install mongoDB in my Mac. It was a pain in the ass!
 
 2. Install mongoose
@@ -321,7 +329,7 @@ require('./database');
 6. Inside database folder, create another folder to store the schema:
    src/database/schemas/User.js
 
-6.1 Impplement the schema:
+6.1 Implement the schema:
 
 const mongoose = require('mongoose');
 
@@ -373,6 +381,8 @@ N: Mongo Compass show the collections. I had a little bug cs I didn't know how t
 
 https://www.youtube.com/watch?v=La7rGj_z6wM&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=12
 
+N: With hashing you can not recover the original value while with encrypting you can recover the value is you have the correct key.
+
 1. Create folder utils and file helpers.js
    src/utils/helpers.js
 
@@ -402,6 +412,8 @@ const newUser = await User.create({username, password:hashedPassword, email});
 # Lesson 13. ExpressJS - Basic Username & Password Authentication
 
 https://www.youtube.com/watch?v=0R2tCDRh3nQ&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=13
+
+N: Passport is a authentification middleware library. It is very common to use with Express.js but it could be use with other libraries.
 
 1. src/utils/helpers.js. Implement compare function
 
@@ -460,8 +472,7 @@ N: I had a bug in this part coz I didnt return the value in comparePassword func
 https://www.youtube.com/watch?v=NzOmWMQpO-I&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=15
 
 1. install package passport:
-   npm i passport-local
-   npm i passport
+   npm i passport passport-local
 
 2. src/index.js Require passpor and implement middleware:
 
@@ -523,6 +534,10 @@ res.send(200);
 # Lesson 16. ExpressJS - Serialize User & Deserialize User
 
 https://www.youtube.com/watch?v=wbylpKRkOD0&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=16
+
+- The serialized functions is used to save specific data request session object
+
+- Desarialize user takes the data that we serialized into the session and it needs to use to retrieve the original record from the database, typically the user
 
 1. src/strategies/local.js. Serialize user. This is used when log in:
    passport.serializeUser((user, done)=>{
@@ -686,10 +701,14 @@ res.send(200);
 
 https://www.youtube.com/watch?v=t5sFkGk8GY8&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=19
 
+N: Unit testing is test small pieces of our application instead of testing the the whole app.
+
 1. Install Jest
    npm install --save-dev jest
 
-2. Create folder for the business logic
+2. jest.config.js. Uncomment testMatcht. This will match the unit test files
+
+3. Create folder for the business logic
    src/controllers/auth.js
 
 const User = require("../database/schemas/User");
@@ -715,8 +734,154 @@ module.exports = {
 authRegisterController,
 }
 
-3. Everything inside auth.spec.js. I did not quite understood all the process!
+N: He creates a controller with the name of the function coz previous videos he was using a callback functiion as business logi but that can bot be useful while testing, Good practice would be to have this format from the very beginning!
+
+3. **test**/controller/auth.spec. It is where the test are written for auth route
+
+3.1 Write a test. It is important. This has to parameter:
+
+- description of the test
+- a callback function that contant the test
+
+it('should send a status code of 400 when user exists', async () => {
+
+4. Create fake parameters functions that will be passed to function we are testing (authRegisterController)
+
+const request = {
+body: {
+email: 'fake_email',
+password: 'fake_password',
+},
+};
+
+const response = {
+status: jest.fn((x) => x),
+send: jest.fn((x) => x),
+};
+
+5. Mocking the data base:
+
+- Import the database schema with jest mock
+  jest.mock('../../database/schemas/User');
+
+- mocking the implementation inside the test
+
+User.findOne.mockImplementationOnce(() => ({
+id: 1,
+email: 'email',
+password: 'password',
+}));
+
+- call the function we are testing
+  await authRegisterController(request, response);
+
+6. Writing the assertions:
+   expect(response.status).toHaveBeenCalledWith(400);
+   expect(response.send).toHaveBeenCalledTimes(1);
+
+7. Second test:
+   it('should send a status code of 201 when new user is created', async () => {
+
+8. Return user value as null. This means the user does not exist in the data base ad a new user can be created:
+
+User.findOne.mockResolvedValueOnce(undefined);
+
+9. Mock creating a new user:
+
+User.create.mockResolvedValueOnce({
+id: 1,
+email: 'email',
+password: 'password',
+});
+
+10. Call the function we are testing
+    await authRegisterController(request, response);
+
+11. Mock the hashPassword function:
+    const { hashPassword } = require('../../utils/helpers');
+
+jest.mock('../../utils/helpers', () => ({
+hashPassword: jest.fn(() => 'hash password'),
+}));
+
+12. Write the assertions:
+    expect(hashPassword).toHaveBeenCalledWith('fake_password');
+    expect(User.create).toHaveBeenCalledWith({
+    email: 'fake_email',
+    password: 'hash password',
+    });
+    expect(response.send).toHaveBeenCalledWith(201);
 
 # Lesson 20. ExpressJS - More Unit Testing Examples with Jest
 
 https://www.youtube.com/watch?v=KXvuWExXY4Y&list=PL_cUvD4qzbkwp6pxx27pqgohrsP8v1Wj2&index=20
+
+N: Write testing for the discord verify function.
+
+1. All the test are running inside a block function:
+   describe('Discord Verify Function', () => {
+
+2. Mock the parameter that willbe used in the tested function
+
+const accessToken = '123';
+const refreshToken = '456';
+const profile = {
+id: '2313213424',
+};
+
+const done = jest.fn((x) => x);
+
+3.  First test
+    it('should return user if found', async ()
+
+4.  Mocking the database
+    jest.mock('../../database/schemas/DiscordUser');
+
+        const mockedUser = {
+          id: 'id_123',
+          discordId: profile.id,
+          createdAt: new Date(),
+        };
+
+    DiscordUser.findOne.mockResolvedValueOnce(mockedUser);
+
+5.  Called the tested function:
+    await discordVerifyFunction(accessToken, refreshToken, profile, done);
+
+6.  Write the assertions:
+    expect(DiscordUser.findOne).toHaveBeenCalledWith({
+    discordId: profile.id,
+    });
+    expect(done).toHaveBeenCalledWith(null, mockedUser);
+    });
+
+7.  Second test
+    it('should create user & return if not found', async () => {
+
+8.  Mock database
+    const newProfile = {
+    id: '1234',
+    };
+    const newUser = {
+    id: 1,
+    discordId: '1234',
+    createdAt: new Date(),
+    };
+    DiscordUser.create.mockResolvedValueOnce(newUser);
+    DiscordUser.findOne.mockImplementationOnce(() => undefined);
+
+9.  Call the tested function for the second block (else)
+    await discordVerifyFunction(accessToken, refreshToken, newProfile, done);
+
+10. Write the assertions:
+    expect(DiscordUser.findOne).toHaveBeenCalledWith({
+    discordId: newProfile.id,
+    });
+    expect(DiscordUser.findOne).toHaveReturnedWith(undefined);
+    expect(DiscordUser.create).toHaveBeenCalledWith({ discordId: '1234' });
+    expect(done).toHaveBeenCalledWith(null, newUser);
+    });
+
+N: I need to learn a lot more about Jets and Unit testing but so far at least I understood this part
+
+**THE END**
