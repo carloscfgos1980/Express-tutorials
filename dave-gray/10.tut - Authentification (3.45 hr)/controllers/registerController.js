@@ -18,6 +18,7 @@ const handleNewUser = async (req, res) => {
         //store the new user
         const newUser = { "username": user, "password": hashedPwd };
         usersDB.setUsers([...usersDB.users, newUser]);
+        // write into the fake database: /model/users.json
         await fsPromises.writeFile(
             path.join(__dirname, '..', 'model', 'users.json'),
             JSON.stringify(usersDB.users)
